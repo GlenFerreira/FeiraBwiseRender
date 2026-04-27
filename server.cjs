@@ -124,8 +124,12 @@ app.post('/api/matrixify', upload.single('image'), async (req, res) => {
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+app.use((req, res, next) => {
+    if (req.method === 'GET') {
+        res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    } else {
+        next();
+    }
 });
 
 const PORT = process.env.PORT || 3333;
