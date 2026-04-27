@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/typescript.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Maturity Assessment | Matrix Edition</title>
+</head>
+
+<body>
+  <canvas id="canvas-matrix"></canvas>
+
+  <div id="app">
+    <!-- Welcome Section -->
+    <section id="welcome" class="glass-card">
+      <h1 class="glitch-text">Conheça a Verdade</h1>
+      <p>A Matrix está em todo lugar. Ela é o mundo que foi colocado diante dos seus olhos para cegá-lo da verdade.</p>
+      <p style="margin-top: 1rem;">Sua empresa está pronta para o despertar tecnológico ou ainda vive na simulação?</p>
+      <button id="start-btn">Iniciar Teste de Maturidade</button>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="glass-card hidden">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div id="question-content">
+        <h2 id="question-title">Carregando...</h2>
+        <div class="options-container" id="options">
+          <!-- Options will be injected here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Camera Section -->
+    <section id="camera-section" class="glass-card hidden">
+      <h2 class="glitch-text">Sincronização Neural</h2>
+      <p>Para entrar na Matrix, precisamos mapear sua interface biológica.</p>
+      
+      <div class="camera-container">
+        <video id="webcam" autoplay playsinline title="Mapeamento Biométrico"></video>
+        <canvas id="photo-canvas" class="hidden"></canvas>
+        <div class="scan-line"></div>
+      </div>
+
+      <div class="camera-controls">
+        <button id="capture-btn">Capturar Essência</button>
+        <button id="retry-btn" class="hidden">Tentar Novamente</button>
+      </div>
+    </section>
+
+    <!-- Lead Capture Section -->
+    <section id="lead-capture" class="glass-card hidden">
+      <h2 class="glitch-text">Identificação</h2>
+      <p style="margin-bottom: 2rem;">Antes de revelarmos sua posição na Matrix, identifique sua conexão:</p>
+
+      <div class="form-container">
+        <div class="input-group">
+          <label>Nome</label>
+          <input type="text" id="lead-name" placeholder="Ex: Neo" required>
+        </div>
+        <div class="input-group">
+          <label>Empresa</label>
+          <input type="text" id="lead-company" placeholder="Ex: MetaCortechs" required>
+        </div>
+        <div class="input-group">
+          <label>Telefone</label>
+          <input type="tel" id="lead-phone" placeholder="(00) 00000-0000">
+        </div>
+        <div class="input-group">
+          <label>E-mail</label>
+          <input type="email" id="lead-email" placeholder="neo@matrix.com" required>
+        </div>
+        <button id="submit-lead-btn">Ver Resultado</button>
+      </div>
+    </section>
+
+    <!-- Result Section -->
+    <section id="result" class="glass-card hidden">
+      <h2 class="glitch-text">Diagnóstico de Maturidade</h2>
+      <div class="result-layout">
+        <div class="result-image-side">
+          <div id="result-photo-container">
+            <div id="result-loader" class="loader-container">
+              <div class="spinner"></div>
+              <p>Baixando da Matrix...</p>
+            </div>
+            <!-- Transformed image will be injected here -->
+          </div>
+        </div>
+        <div class="result-text-side">
+          <div id="score-display" style="font-size: 2.5rem; margin-bottom: 0.5rem; font-family: var(--font-mono);">0/35</div>
+          <h3 id="result-level">Nível de Maturidade</h3>
+          <p id="result-desc"></p>
+          <button onclick="window.location.reload()" style="margin-top: 2rem;">Reiniciar Simulação</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Inter:wght@300;400;600&display=swap');
+
+:root {
+  --matrix-green: #00ff41;
+  --matrix-green-dim: #008f11;
+  --matrix-green-dark: #003b00;
+  --bg-black: #000000;
+  --glass-bg: rgba(0, 59, 0, 0.15);
+  --glass-border: rgba(0, 255, 65, 0.2);
+  --font-mono: 'Fira Code', monospace;
+  --font-sans: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-black);
+  color: var(--matrix-green);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#canvas-matrix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 1;
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  padding: 3rem;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+  animation: flicker 2s infinite alternate;
+  transition: max-width 0.5s ease;
+}
+
+#result.glass-card {
+  max-width: 1200px; /* Specific larger width for result */
+}
+
+@keyframes flicker {
+  0% {
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+  }
+
+  100% {
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 8px var(--matrix-green);
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+button {
+  background: transparent;
+  color: var(--matrix-green);
+  border: 1px solid var(--matrix-green);
+  padding: 1rem 2.5rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  background: var(--matrix-green);
+  color: var(--bg-black);
+  box-shadow: 0 0 15px var(--matrix-green);
+}
+
+.quiz-container {
+  display: none;
+  flex-direction: column;
+}
+
+.question-card {
+  margin-bottom: 2rem;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.option-btn {
+  text-align: left;
+  padding: 1.2rem;
+  margin: 0;
+  font-size: 1rem;
+  background: rgba(0, 59, 0, 0.3);
+}
+
+.option-btn:hover {
+  background: var(--matrix-green-dim);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--matrix-green-dark);
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--matrix-green);
+  width: 0%;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px var(--matrix-green);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Form Styles */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+input {
+  background: rgba(0, 59, 0, 0.2);
+  border: 1px solid var(--matrix-green-dim);
+  color: var(--matrix-green);
+  padding: 1rem;
+  font-family: var(--font-sans);
+  border-radius: 2px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--matrix-green);
+  box-shadow: 0 0 10px var(--matrix-green-dim);
+  background: rgba(0, 59, 0, 0.3);
+}
+
+::placeholder {
+  color: var(--matrix-green-dim);
+  opacity: 0.5;
+}
+
+/* Camera & Result Photo */
+.camera-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 2rem auto;
+  border: 2px solid var(--matrix-green-dim);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#webcam {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--matrix-green);
+  opacity: 0.5;
+  box-shadow: 0 0 15px var(--matrix-green);
+  animation: scan 3s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(375px); }
+}
+
+.camera-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.result-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .result-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .result-image-side {
+    flex: 1;
+  }
+  
+  .result-text-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+#result-photo-container {
+  width: 100%;
+  max-width: 900px; /* Much larger */
+  margin: 0 auto 1.5rem;
+  border: 2px solid var(--matrix-green);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 50px var(--matrix-green-dim);
+  aspect-ratio: 16/9; /* Wider cinematic aspect ratio */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+#result-photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--matrix-green);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--matrix-green-dark);
+  border-top: 4px solid var(--matrix-green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 10px var(--matrix-green-dim);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.captured-image {
+  transform: scaleX(-1);
+}
