@@ -12,65 +12,52 @@ interface Question {
 const questions: Question[] = [
   {
     id: 1,
-    text: "A tecnologia é vista como custo ou motor estratégico?",
+    text: "Se hoje seu melhor vendedor saísse da empresa, quanto sua operação comercial sofreria?",
     options: [
-      { text: "Custo operacional (necessário, mas evitamos gastar)", points: 1 },
-      { text: "Suporte ao negócio (ajuda, mas não é o foco)", points: 3 },
-      { text: "Motor estratégico (essencial para nossa competitividade)", points: 5 }
+      { text: "Quase nada (Operação estruturada e independente)", points: 5 },
+      { text: "Sofreria moderadamente (Há alguma dependência)", points: 3 },
+      { text: "Grande impacto (Sente muito a ausência)", points: 2 },
+      { text: "Seria um caos (Totalmente dependente)", points: 1 }
     ]
   },
   {
     id: 2,
-    text: "Decisões são baseadas em dados ou intuição?",
+    text: "Sua empresa sabe exatamente em qual etapa perde mais oportunidades comerciais?",
     options: [
-      { text: "Intuição/Feeling (dados são raros ou não confiáveis)", points: 1 },
-      { text: "Híbrido (temos relatórios, mas o feeling ainda manda)", points: 3 },
-      { text: "Data-Driven (dados orientam todas as grandes decisões)", points: 5 }
+      { text: "Sim, com clareza (Dados precisos sobre o funil)", points: 5 },
+      { text: "Parcialmente (Algumas métricas incompletas)", points: 3 },
+      { text: "Temos percepção (Intuição sem dados concretos)", points: 2 },
+      { text: "Não sabemos (Operação no escuro)", points: 1 }
     ]
   },
   {
     id: 3,
-    text: "Existe orçamento/processo claro para Novas Tecnologias (IA)?",
+    text: "Seu WhatsApp comercial funciona como ferramenta estratégica ou apenas canal de conversa?",
     options: [
-      { text: "Não (investimos apenas quando algo quebra)", points: 1 },
-      { text: "Reativo (investimos se a concorrência fizer)", points: 3 },
-      { text: "Proativo (temos budget e P&D para inovação constante)", points: 5 }
+      { text: "Estratégico e organizado", points: 5 },
+      { text: "Parcialmente estruturado", points: 3 },
+      { text: "Majoritariamente operacional", points: 2 },
+      { text: "Totalmente desorganizado", points: 1 }
     ]
   },
   {
     id: 4,
-    text: "Cibersegurança é prioridade board-level ou tarefa de IT?",
+    text: "Quantos leads ou clientes deixam de ser acompanhados por falta de processo?",
     options: [
-      { text: "Tarefa de IT (não discutimos isso no board)", points: 1 },
-      { text: "Preocupação ocasional (falamos após incidentes)", points: 3 },
-      { text: "Prioridade Estratégica (riscos são monitorados pelo C-level)", points: 5 }
+      { text: "Quase nenhum", points: 5 },
+      { text: "Alguns", points: 3 },
+      { text: "Muitos", points: 2 },
+      { text: "Não conseguimos medir", points: 1 }
     ]
   },
   {
     id: 5,
-    text: "A cultura da empresa é adaptável a mudanças tech?",
+    text: "Sua empresa cresce por inteligência comercial previsível ou por esforço constante da equipe?",
     options: [
-      { text: "Resistente (processos antigos são sagrados)", points: 1 },
-      { text: "Em transição (alguns times aceitam, outros lutam contra)", points: 3 },
-      { text: "Agile/Digital (mudança faz parte do nosso DNA)", points: 5 }
-    ]
-  },
-  {
-    id: 6,
-    text: "Utilizamos Cloud/Modern stack ou legados locais?",
-    options: [
-      { text: "Legados locais (servidões físicos e sistemas fechados)", points: 1 },
-      { text: "Híbrido (algumas coisas em cloud, muita dívida técnica)", points: 3 },
-      { text: "Cloud Native (infra escalável e ferramentas modernas)", points: 5 }
-    ]
-  },
-  {
-    id: 7,
-    text: "Atraímos talentos de ponta ou temos dificuldade?",
-    options: [
-      { text: "Dificuldade alta (bons talentos não veem valor aqui)", points: 1 },
-      { text: "Razoável (conseguimos contratar, mas perdemos rápido)", points: 3 },
-      { text: "Ímã de Talentos (profissionais buscam trabalhar conosco)", points: 5 }
+      { text: "Crescimento previsível", points: 5 },
+      { text: "Misto", points: 3 },
+      { text: "Muito dependente de esforço humano", points: 2 },
+      { text: "Totalmente dependente de esforço", points: 1 }
     ]
   }
 ];
@@ -302,7 +289,7 @@ function showResult() {
   leadSection.classList.add('hidden');
   resultSection.classList.remove('hidden');
 
-  scoreDisplay.innerText = `${totalScore}/35`;
+  scoreDisplay.innerText = `${totalScore}/25`;
 
   console.log("ShowResult: transformedImageData exists?", !!transformedImageData);
   
@@ -327,15 +314,15 @@ function showResult() {
     displayFinalImage();
   }
 
-  if (totalScore <= 14) {
-    resultLevel.innerText = "Nível: Inércia Digital";
-    resultDesc.innerText = "Você está preso na Matrix. Sua empresa opera em modelos legados e vê a tecnologia apenas como custo. O risco de obsolescência é crítico.";
-  } else if (totalScore <= 28) {
-    resultLevel.innerText = "Nível: Transição Digital";
-    resultDesc.innerText = "Você está começando a despertar. Existem iniciativas isoladas, mas falta uma visão estratégica unificada. A pílula vermelha foi tomada, mas o caminho é longo.";
+  if (totalScore <= 10) {
+    resultLevel.innerText = "Nível: Inércia Comercial";
+    resultDesc.innerText = "Sua operação comercial está presa na simulação. Dependência excessiva de talentos individuais e falta de processos estruturados tornam o crescimento imprevisível e arriscado.";
+  } else if (totalScore <= 20) {
+    resultLevel.innerText = "Nível: Transição Comercial";
+    resultDesc.innerText = "Você começou a despertar. Já existem processos e alguma visibilidade, mas a operação ainda patina em tarefas manuais e falta de integração. A pílula vermelha foi tomada.";
   } else {
-    resultLevel.innerText = "Nível: Vanguarda Digital (O Escolhido)";
-    resultDesc.innerText = "Você domina a Matrix. A tecnologia é o núcleo do seu negócio, decisões são baseadas em dados e a inovação é constante. Você dita as regras do mercado.";
+    resultLevel.innerText = "Nível: Vanguarda Comercial (O Escolhido)";
+    resultDesc.innerText = "Você domina a Matrix das vendas. Com processos automatizados, dados precisos e independência de pessoas-chave, sua empresa tem um motor de crescimento previsível e escalável.";
   }
 }
 
