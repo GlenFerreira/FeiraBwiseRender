@@ -60,7 +60,7 @@ body {
 }
 
 #result.glass-card {
-  max-width: 1200px; /* Specific larger width for result */
+  max-width: 800px;
 }
 
 @keyframes flicker {
@@ -201,13 +201,13 @@ input:focus {
 .camera-container {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 320px;
   margin: 2rem auto;
   border: 2px solid var(--matrix-green-dim);
   border-radius: 4px;
   overflow: hidden;
   background: #000;
-  aspect-ratio: 4/3;
+  aspect-ratio: 9/16;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,13 +228,13 @@ input:focus {
   background: var(--matrix-green);
   opacity: 0.5;
   box-shadow: 0 0 15px var(--matrix-green);
-  animation: scan 3s linear infinite;
+  animation: scan 4s linear infinite;
   pointer-events: none;
 }
 
 @keyframes scan {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(375px); }
+  0% { top: 0; }
+  100% { top: 100%; }
 }
 
 .camera-controls {
@@ -272,13 +272,13 @@ input:focus {
 
 #result-photo-container {
   width: 100%;
-  max-width: 900px; /* Much larger */
+  max-width: 350px;
   margin: 0 auto 1.5rem;
   border: 2px solid var(--matrix-green);
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 0 50px var(--matrix-green-dim);
-  aspect-ratio: 16/9; /* Wider cinematic aspect ratio */
+  aspect-ratio: 9/16;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -320,4 +320,14 @@ input:focus {
 
 .captured-image {
   transform: scaleX(-1);
+}
+
+.question-image {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  margin: 1.5rem auto;
+  border: 1px solid var(--matrix-green-dim);
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
 }

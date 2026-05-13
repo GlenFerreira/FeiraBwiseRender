@@ -6,6 +6,7 @@ import './style.css'
 interface Question {
   id: number;
   text: string;
+  image?: string;
   options: { text: string; points: number }[];
 }
 
@@ -13,6 +14,7 @@ const questions: Question[] = [
   {
     id: 1,
     text: "Se hoje seu melhor vendedor saísse da empresa, quanto sua operação comercial sofreria?",
+    image: "/pills.png",
     options: [
       { text: "Quase nada (Operação estruturada e independente)", points: 5 },
       { text: "Sofreria moderadamente (Há alguma dependência)", points: 3 },
@@ -232,6 +234,8 @@ function resetPhoto() {
 
 // --- QUIZ LOGIC ---
 function startQuiz() {
+  currentQuestionIndex = 0;
+  totalScore = 0;
   welcomeSection.classList.add('hidden');
   quizSection.classList.remove('hidden');
   showQuestion();
@@ -239,7 +243,11 @@ function startQuiz() {
 
 function showQuestion() {
   const q = questions[currentQuestionIndex];
-  questionTitle.innerText = q.text;
+  
+  // Inject image if exists
+  const imageHtml = q.image ? `<img src="${q.image}" class="question-image" alt="Question illustration" />` : '';
+  
+  questionTitle.innerHTML = `${q.text}${imageHtml}`;
   optionsContainer.innerHTML = '';
 
   progressFill.style.width = `${((currentQuestionIndex) / questions.length) * 100}%`;
