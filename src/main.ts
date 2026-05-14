@@ -283,22 +283,48 @@ function showResult() {
     return;
   }
 
+  // Segurança: Garante que o score nunca passe de 25
+  totalScore = Math.min(totalScore, 25);
+
   const leadData = {
     nome: leadName.value,
     empresa: leadCompany.value,
     telefone: leadPhone.value,
     email: leadEmail.value,
     score: totalScore,
-    image: transformedImageData || capturedImageData
+    image: transformedImageData || capturedImageData,
+    level: "", // Será preenchido abaixo
+    desc: ""   // Será preenchido abaixo
   };
 
+  if (totalScore <= 10) {
+    leadData.level = "Inércia Comercial";
+    leadData.desc = "Sua operação comercial está presa na simulação. Dependência excessiva de talentos individuais e falta de processos estruturados tornam o crescimento imprevisível e arriscado.";
+  } else if (totalScore <= 20) {
+    leadData.level = "Transição Comercial";
+    leadData.desc = "Você começou a despertar. Já existem processos e alguma visibilidade, mas a operação ainda patina em tarefas manuais e falta de integração. A pílula vermelha foi tomada.";
+  } else {
+    leadData.level = "Vanguarda Comercial (O Escolhido)";
+    leadData.desc = "Você domina a Matrix das vendas. Com processos automatizados, dados precisos e independência de pessoas-chave, sua empresa tem um motor de crescimento previsível e escalável.";
+  }
+
   console.log("Lead captured:", leadData);
+
+  // Envia o e-mail dinâmico e estético
+  fetch('/api/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(leadData)
+  })
+  .then(res => res.json())
+  .then(data => console.log("Resposta do envio de e-mail:", data))
+  .catch(err => console.error("Erro ao solicitar envio de e-mail:", err));
 
   leadSection.classList.add('hidden');
   resultSection.classList.remove('hidden');
 
   scoreDisplay.innerText = `${totalScore}/25`;
-
+  
   console.log("ShowResult: transformedImageData exists?", !!transformedImageData);
   
   const displayFinalImage = () => {
@@ -322,16 +348,8 @@ function showResult() {
     displayFinalImage();
   }
 
-  if (totalScore <= 10) {
-    resultLevel.innerText = "Nível: Inércia Comercial";
-    resultDesc.innerText = "Sua operação comercial está presa na simulação. Dependência excessiva de talentos individuais e falta de processos estruturados tornam o crescimento imprevisível e arriscado.";
-  } else if (totalScore <= 20) {
-    resultLevel.innerText = "Nível: Transição Comercial";
-    resultDesc.innerText = "Você começou a despertar. Já existem processos e alguma visibilidade, mas a operação ainda patina em tarefas manuais e falta de integração. A pílula vermelha foi tomada.";
-  } else {
-    resultLevel.innerText = "Nível: Vanguarda Comercial (O Escolhido)";
-    resultDesc.innerText = "Você domina a Matrix das vendas. Com processos automatizados, dados precisos e independência de pessoas-chave, sua empresa tem um motor de crescimento previsível e escalável.";
-  }
+  resultLevel.innerText = `Nível: ${leadData.level}`;
+  resultDesc.innerText = leadData.desc;
 }
 
 // --- INITIALIZATION ---
