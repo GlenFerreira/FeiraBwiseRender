@@ -25,12 +25,17 @@ app.use(express.json({ limit: '50mb' }));
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || process.env.VITE_GOOGLE_API_KEY);
 
-// Initialize Nodemailer Transporter (Gmail)
+// Initialize Nodemailer Transporter (Gmail - Explicit config for Production/Render)
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
         user: process.env.EMAIL,
         pass: process.env.APP_PASSWORD
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
